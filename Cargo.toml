@@ -1,0 +1,14 @@
+[package]
+name = "conditional-assignment"
+version = "0.1.0"
+edition = "2021"
+description = "A simple trait to conditionally pick one of two arguments. Pre-implemented for bool, Option<T>, and Result<T, U>."
+authors = ["xohmz"]
+repository = "https://github.com/xohmz/conditional-assignment"
+rust-version = "1.56.1"
+exclude = [".github"]
+keywords = ["conditional", "assignment"]
+categories = ["no-std", "rust-patterns"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]

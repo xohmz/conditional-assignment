@@ -108,3 +108,24 @@ fn str_vec_manipulation() {
 
     assert_eq!(msg, "Found first word with three characters.")
 }
+
+#[test]
+fn check_laziness() {
+    let mut positive_counter = 0;
+    let mut negative_counter = 0;
+
+    let say = true.pick_lazy(
+        || {
+            positive_counter += 1;
+            "It was true!"
+        },
+        || {
+            negative_counter += 1;
+            "It was false!"
+        },
+    );
+
+    assert_eq!(positive_counter, 1);
+    assert_eq!(negative_counter, 0);
+    assert_eq!(say, "It was true!");
+}

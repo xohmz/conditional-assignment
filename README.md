@@ -18,7 +18,7 @@ MSRV is lower, but I didn't check. Try it!
 Sometimes this:
 
 ```rust,ignore
-let outcome = condition.pick(positive, negative)
+let outcome = condition.pick_lazy(positive, negative)
 ```
 
 looks better than this:

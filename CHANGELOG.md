@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2023-12-25
+## [0.2.0] - 2023-12-26
 
 ### Changed
 
-- Update version.
+- Argument names for trait `pick` function.
+- README "Why" section
+
+### Added
+
+- `pick_lazy` function.
+- Test for `pick_lazy` function.
 
 ## [0.1.0] - 2023-12-25
 

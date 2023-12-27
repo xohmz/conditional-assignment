@@ -26,7 +26,7 @@ let outcome = if condition {
 #### Eager
 
 ```rust
-use conditional_assignment::ConditionalAssignment;
+use conditional_assignment::Pick;
 
 let condition = 0 < 1;
 let outcome = condition.pick("true", "false");
@@ -35,7 +35,7 @@ let outcome = condition.pick("true", "false");
 #### Lazy
 
 ```rust
-use conditional_assignment::ConditionalAssignment;
+use conditional_assignment::Pick;
 
 let condition = 0 < 1;
 let outcome = condition.pick_lazy(

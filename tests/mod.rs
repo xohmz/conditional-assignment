@@ -1,4 +1,4 @@
-use conditional_assignment::ConditionalAssignment;
+use conditional_assignment::Pick;
 
 const TRUE_CHOICE: &str = "true";
 const FALSE_CHOICE: &str = "false";

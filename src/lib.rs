@@ -1,6 +1,6 @@
 #![doc = include_str!("../README.md")]
 
-pub trait ConditionalAssignment<O>: private::Sealed {
+pub trait Pick<O>: private::Sealed {
     fn pick(self, when_true: O, when_false: O) -> O;
     fn pick_lazy<P, N>(self, when_true: P, when_false: N) -> O
     where
@@ -15,12 +15,12 @@ mod private {
     impl Sealed for bool {}
 }
 
-impl<O> ConditionalAssignment<O> for bool {
+impl<O> Pick<O> for bool {
     ///
     ///
     /// Example:
     /// ```
-    /// use conditional_assignment::ConditionalAssignment;
+    /// use conditional_assignment::Pick;
     /// let condition = 0 < 1;
     /// let outcome = if condition {
     ///    "true"
@@ -41,7 +41,7 @@ impl<O> ConditionalAssignment<O> for bool {
     ///
     /// Example:
     /// ```
-    /// use conditional_assignment::ConditionalAssignment;
+    /// use conditional_assignment::Pick;
     /// let condition = 0 < 1;
     /// let outcome = condition.pick_lazy(
     ///     || {

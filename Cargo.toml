@@ -1,8 +1,8 @@
 [package]
 name = "conditional-assignment"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
-description = "A simple trait to conditionally pick one of two arguments. Pre-implemented for bool, Option<T>, and Result<T, U>."
+description = "This is a very simple, small crate to help make conditional assignments more ergonomic."
 authors = ["xohmz"]
 repository = "https://github.com/xohmz/conditional-assignment"
 rust-version = "1.56.1"

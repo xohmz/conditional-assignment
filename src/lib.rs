@@ -1,59 +1,69 @@
 #![doc = include_str!("../README.md")]
 
-pub trait ConditionalAssignment<O> {
-    fn pick(self, positive: O, negative: O) -> O;
-    fn pick_lazy<P, N>(self, positive: P, negative: N) -> O
+pub trait ConditionalAssignment<O>: private::Sealed {
+    fn pick(self, when_true: O, when_false: O) -> O;
+    fn pick_lazy<P, N>(self, when_true: P, when_false: N) -> O
     where
         P: FnOnce() -> O,
         N: FnOnce() -> O;
 }
 
+// Prevent this trait from being implemented outside of this crate.
+// https://rust-lang.github.io/api-guidelines/future-proofing.html#c-sealed
+mod private {
+    pub trait Sealed {}
+    impl Sealed for bool {}
+}
+
 impl<O> ConditionalAssignment<O> for bool {
-    fn pick(self: bool, positive: O, negative: O) -> O {
+    ///
+    ///
+    /// Example:
+    /// ```
+    /// use conditional_assignment::ConditionalAssignment;
+    /// let condition = 0 < 1;
+    /// let outcome = if condition {
+    ///    "true"
+    /// } else {
+    ///    "false"
+    /// };
+    /// ```
+    #[inline]
+    fn pick(self: bool, when_true: O, when_false: O) -> O {
         if self {
-            positive
+            when_true
         } else {
-            negative
+            when_false
         }
     }
 
-    fn pick_lazy<P, N>(self: bool, positive: P, negative: N) -> O
+    ///
+    ///
+    /// Example:
+    /// ```
+    /// use conditional_assignment::ConditionalAssignment;
+    /// let condition = 0 < 1;
+    /// let outcome = condition.pick_lazy(
+    ///     || {
+    ///         assert!(condition);
+    ///         "true"
+    ///     },
+    ///     || {
+    ///         assert!(!condition);
+    ///         "false"
+    ///     },
+    /// );
+    /// ```
+    #[inline]
+    fn pick_lazy<P, N>(self: bool, when_true: P, when_false: N) -> O
     where
         P: FnOnce() -> O,
         N: FnOnce() -> O,
     {
         if self {
-            positive()
+            when_true()
         } else {
-            negative()
+            when_false()
         }
-    }
-}
-
-impl<T, O> ConditionalAssignment<O> for Option<T> {
-    fn pick(self: Option<T>, positive: O, negative: O) -> O {
-        self.is_some().pick(positive, negative)
-    }
-
-    fn pick_lazy<P, N>(self: Option<T>, positive: P, negative: N) -> O
-    where
-        P: FnOnce() -> O,
-        N: FnOnce() -> O,
-    {
-        self.is_some().pick_lazy(positive, negative)
-    }
-}
-
-impl<T, U, O> ConditionalAssignment<O> for Result<T, U> {
-    fn pick(self: Result<T, U>, positive: O, negative: O) -> O {
-        self.is_ok().pick(positive, negative)
-    }
-
-    fn pick_lazy<P, N>(self: Result<T, U>, positive: P, negative: N) -> O
-    where
-        P: FnOnce() -> O,
-        N: FnOnce() -> O,
-    {
-        self.is_ok().pick_lazy(positive, negative)
     }
 }
